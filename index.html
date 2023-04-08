@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Rust Wasm Demo</title>
+    <script type="module">
+        import { runRust, createProof, verifyProof } from './your_project_name.js';
+
+        window.runRust = runRust;
+        window.createProof = createProof;
+        window.verifyProof = verifyProof;
+    </script>
+</head>
+<body>
+    <button onclick="runRust();">Run Rust Code</button>
+    <button onclick="createProof();">Create Proof</button>
+    <button onclick="verifyProof();">Verify Proof</button>
+</body>
+</html>
