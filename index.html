@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZKP Web Application</title>
+    <link rel="stylesheet" href="style.css"> <!-- CSSファイルをリンクする -->
 </head>
 <body>
     <h1>ZKP Web Application</h1>
@@ -13,10 +14,14 @@
     <!-- ボタンを追加 -->
     <button id="createProofButton">Create Proof</button>
     <button id="verifyProofButton">Verify Proof</button>
+    <button id="resetButton">Reset</button> <!-- Reset ボタンを追加 -->
 
     <!-- proof および検証結果を表示するための要素を追加 -->
-    <p id="proofResult">Proof: </p>
-    <p id="verificationResult">Verification Result: </p>
+    <p>Proof:</p>
+    <pre id="proofResult" style="white-space: pre-wrap;"></pre>
+
+    <span>Verification Result: </span>
+    <span id="verificationResult"></span>
 
     <!-- JavaScriptファイルを読み込む -->
     <script type="module" src="./main.js"></script>

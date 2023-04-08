@@ -1,0 +1,53 @@
+/* 全体のフォントと背景色を設定 */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+    margin: 0;
+    padding: 20px;
+}
+
+/* タイトルのスタイルを設定 */
+h1 {
+    color: #333;
+    font-size: 2rem;
+}
+
+/* テキストのスタイルを設定 */
+p {
+    font-size: 1rem;
+    color: #666;
+    line-height: 1.5;
+}
+
+/* ボタンのスタイルを設定 */
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+/* ホバー時のボタンスタイルを設定 */
+button:hover {
+    background-color: #2980b9;
+}
+
+/* proofResult のスタイルを設定 */
+#proofResult {
+    background-color: transparent; /* ここを変更 */
+    padding: 10px;
+    cursor: pointer;
+    white-space: pre-wrap;
+    border-radius: 5px;
+}
+
+
+/* 検証結果のスタイルを設定 */
+#verificationResult {
+    font-weight: bold;
+    font-size: 1.2rem;
+}

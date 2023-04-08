@@ -1,17 +1,17 @@
 import init, {
   create_proof,
   verify_zk_proof,
+  create_json_proof,
 } from "./pkg/arkworks_groth16_frontend.js";
 
 // グローバル変数を追加
 let currentProofVec = null;
 
 async function runCreateProof() {
-  let proofVec; // proofVec を関数スコープの先頭で宣言
+  let proofVec;
   try {
     console.log("runCreateProof started");
-    // proofVec = create_proof();
-    proofVec = create_proof();
+    proofVec = await create_proof();
 
     console.log("Proof: ", proofVec);
 
@@ -19,12 +19,41 @@ async function runCreateProof() {
     currentProofVec = proofVec;
     console.log("runCreateProof finished");
 
+    // Get proof JSON
+    const proofJsonString = await create_json_proof(new Uint8Array(proofVec));
+    console.log("Proof JSON string: ", proofJsonString);
+
+    // Parse the JSON string to a JavaScript object
+    const proofJson = JSON.parse(proofJsonString);
+    console.log("Proof JSON: ", proofJson);
+
     // proof の結果を HTML に表示
-    document.getElementById("proofResult").textContent = `Proof: ${proofVec}`;
+    document.getElementById("proofResult").innerText = `${JSON.stringify(proofJson, null, 2)}`;
+
+    // 背景色を変更
+    document.getElementById("proofResult").style.backgroundColor = "lightblue"; // 追加
+
   } catch (error) {
     console.error("Error creating proof: ", error);
   }
 }
+
+// Proof をコピーする機能を追加
+function copyProofToClipboard() {
+  const proofText = document.getElementById("proofResult").innerText;
+
+  if (proofText === "") {
+    return;
+  }
+
+  const textArea = document.createElement("textarea");
+  textArea.value = proofText;
+  document.body.appendChild(textArea);
+  textArea.select();
+  document.execCommand("copy");
+  document.body.removeChild(textArea);
+}
+
 
 async function runVerifyProof() {
   try {
@@ -42,10 +71,19 @@ async function runVerifyProof() {
     const result = verify_zk_proof(new Uint8Array(currentProofVec), publicInput);
     console.log("Verification result: ", result);
     console.log("runVerifyProof finished");
-  } catch (error) {
     // 検証結果を HTML に表示
-    document.getElementById("verificationResult").textContent = `Verification Result: ${result}`;
+    document.getElementById("verificationResult").textContent = `${result}`;
+  } catch (error) {
+    console.error("Error verifying proof: ", error);
   }
+}
+
+// Reset 機能を追加
+function resetResults() {
+  document.getElementById("proofResult").innerText = "";
+  document.getElementById("proofResult").style.backgroundColor = "transparent"; // 追加
+  document.getElementById("verificationResult").innerText = "";
+  currentProofVec = null;
 }
 
 // wasmモジュールの初期化とボタンイベントリスナーの追加
@@ -54,6 +92,8 @@ async function main() {
 
   document.getElementById("createProofButton").addEventListener("click", runCreateProof);
   document.getElementById("verifyProofButton").addEventListener("click", runVerifyProof);
+  document.getElementById("resetButton").addEventListener("click", resetResults); // Reset ボタンのイベントリスナーを追加
+  document.getElementById("proofResult").addEventListener("click", copyProofToClipboard); // proofResult のイベントリスナーを追加
 }
 
-main();
+window.addEventListener("load", main);
