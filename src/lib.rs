@@ -45,14 +45,16 @@ impl ConstraintSynthesizer<Fr> for Circuit {
                 .ok_or(SynthesisError::AssignmentMissing)
         })?;
 
-        cs.enforce_constraint(lc!() + a + b, lc!() + Variable::One, lc!() + c)?;
+        // 変更: 掛け算を行う制約を追加
+        cs.enforce_constraint(lc!() + a, lc!() + b, lc!() + c)?;
 
         Ok(())
     }
 }
 
+
 #[wasm_bindgen]
-pub fn create_proof() -> Result<Vec<u8>, JsValue> {
+pub fn create_proof(a: u32, b: u32) -> Result<Vec<u8>, JsValue> {
     let rng = &mut StdRng::seed_from_u64(0u64);
     //let mut rng = OsRng;
 
@@ -67,9 +69,9 @@ pub fn create_proof() -> Result<Vec<u8>, JsValue> {
     };
 
     let assignment = Circuit {
-        a: Some(Fr::from(4)),
-        b: Some(Fr::from(2)),
-        c: Some(Fr::from(6)),
+        a: Some(Fr::from(a)),
+        b: Some(Fr::from(b)),
+        c: Some(Fr::from(a*b)),
     };
 
     let public_input = assignment.c.clone().ok_or_else(|| JsValue::from_str("Failed to get public input"))?; // 変更
@@ -159,8 +161,10 @@ pub fn verify_zk_proof(proof_vec: &[u8], public_input_js: JsValue) -> Result<boo
         Err(_) => return Err(JsValue::from_str("Failed to deserialize proof")),
     };
     
-    let public_input: Vec<String> = from_value(public_input_js).map_err(|_| JsValue::from_str("Failed to parse public input"))?;
-    let public_input: Vec<Fr> = public_input.into_iter().filter_map(|s| s.parse::<Fr>().ok()).collect();
+    // 公開入力を固定
+    let public_input = vec![Fr::from(24)];
+    // let public_input: Vec<String> = from_value(public_input_js).map_err(|_| JsValue::from_str("Failed to parse public input"))?;
+    // let public_input: Vec<Fr> = public_input.into_iter().filter_map(|s| s.parse::<Fr>().ok()).collect();
     
     let result = verify_proof(&vk, &proof, &public_input).unwrap();
     Ok(result)

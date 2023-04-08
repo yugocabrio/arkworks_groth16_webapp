@@ -5,25 +5,38 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ZKP Web Application</title>
-    <link rel="stylesheet" href="style.css"> <!-- CSSファイルをリンクする -->
+    <link rel="stylesheet" href="style.css">
+
 </head>
 <body>
-    <h1>ZKP Web Application</h1>
-    <p>このページは、Zero-Knowledge Proof (ZKP) のWebアプリケーションです。</p>
+    <div class="container">
+        <h1>ZKP Web Application</h1>
+        <p>このページは、Zero-Knowledge Proof (ZKP) のWebアプリケーションです。</p>
+        <p>Let's try programming using the circom language. Prove that you know which two numbers multiply to get 24.<br>Enter these numbers, “a” and “b”, in the form below.</p>
 
-    <!-- ボタンを追加 -->
-    <button id="createProofButton">Create Proof</button>
-    <button id="verifyProofButton">Verify Proof</button>
-    <button id="resetButton">Reset</button> <!-- Reset ボタンを追加 -->
+        <div class="input-fields">
+            <label for="inputA">a</label>
+            <input type="number" id="inputA" value="0" />
+            <span class="operator">*</span>
+            <label for="inputB">b</label>
+            <input type="number" id="inputB" value="0" />
+            <span class="result">= 24</span>
+        </div>        
 
-    <!-- proof および検証結果を表示するための要素を追加 -->
-    <p>Proof:</p>
-    <pre id="proofResult" style="white-space: pre-wrap;"></pre>
+        <div class="buttons">
+            <button id="createProofButton">Create Proof</button>
+            <button id="verifyProofButton">Verify Proof</button>
+            <button id="resetButton">Reset</button>
+        </div>
 
-    <span>Verification Result: </span>
-    <span id="verificationResult"></span>
+        <div class="results">
+            <p>Verification Result: <span id="verificationResult"></span></p>
+            <p>Proof:</p>
+            <pre id="proofResult"></pre>
+        </div>
+    </div>
 
-    <!-- JavaScriptファイルを読み込む -->
     <script type="module" src="./main.js"></script>
 </body>
 </html>
+

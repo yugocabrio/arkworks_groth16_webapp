@@ -8,10 +8,14 @@ import init, {
 let currentProofVec = null;
 
 async function runCreateProof() {
+  document.getElementById("proofResult").innerText = "";
+  document.getElementById("verificationResult").innerText = "";
+  const a = parseInt(document.getElementById("inputA").value);
+  const b = parseInt(document.getElementById("inputB").value);
   let proofVec;
   try {
     console.log("runCreateProof started");
-    proofVec = await create_proof();
+    proofVec = await create_proof(a, b);
 
     console.log("Proof: ", proofVec);
 
@@ -31,7 +35,7 @@ async function runCreateProof() {
     document.getElementById("proofResult").innerText = `${JSON.stringify(proofJson, null, 2)}`;
 
     // 背景色を変更
-    document.getElementById("proofResult").style.backgroundColor = "lightblue"; // 追加
+    document.getElementById("proofResult").style.backgroundColor = "white"; // 追加
 
   } catch (error) {
     console.error("Error creating proof: ", error);
@@ -65,10 +69,10 @@ async function runVerifyProof() {
     }
 
     // 公開入力を設定
-    const publicInput = ["6"]; // この例では、6は証明された和です
+    // const publicInput = ["24"]; // この例では、6は証明された和です
 
     // verify_zk_proofを呼び出す
-    const result = verify_zk_proof(new Uint8Array(currentProofVec), publicInput);
+    const result = verify_zk_proof(new Uint8Array(currentProofVec));
     console.log("Verification result: ", result);
     console.log("runVerifyProof finished");
     // 検証結果を HTML に表示
