@@ -1,0 +1,3 @@
+cargo:rerun-if-changed=build/main.rs
+cargo:rustc-env=TYPENUM_BUILD_CONSTS=/Users/yugo/zero_knowledge_proof/arkworks_groth16_frontend/target/wasm32-unknown-unknown/release/build/typenum-498224cb7d3caaa5/out/consts.rs
+cargo:rustc-env=TYPENUM_BUILD_OP=/Users/yugo/zero_knowledge_proof/arkworks_groth16_frontend/target/wasm32-unknown-unknown/release/build/typenum-498224cb7d3caaa5/out/op.rs

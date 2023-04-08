@@ -2,18 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Rust Wasm Demo</title>
-    <script type="module">
-        import { runRust, createProof, verifyProof } from './your_project_name.js';
-
-        window.runRust = runRust;
-        window.createProof = createProof;
-        window.verifyProof = verifyProof;
-    </script>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZKP Web Application</title>
 </head>
 <body>
-    <button onclick="runRust();">Run Rust Code</button>
-    <button onclick="createProof();">Create Proof</button>
-    <button onclick="verifyProof();">Verify Proof</button>
+    <h1>ZKP Web Application</h1>
+    <p>このページは、Zero-Knowledge Proof (ZKP) のWebアプリケーションです。</p>
+
+    <!-- ボタンを追加 -->
+    <button id="createProofButton">Create Proof</button>
+    <button id="verifyProofButton">Verify Proof</button>
+
+    <!-- proof および検証結果を表示するための要素を追加 -->
+    <p id="proofResult">Proof: </p>
+    <p id="verificationResult">Verification Result: </p>
+
+    <!-- JavaScriptファイルを読み込む -->
+    <script type="module" src="./main.js"></script>
 </body>
 </html>

@@ -17,6 +17,7 @@ ark-std = "0.4.0"
 ark-ff = "0.3.0"
 ark-bn254 = "0.3.0"
 ark-serialize = "^0.3.0"
+console_error_panic_hook = "0.1.7"
 
 [lib]
 crate-type = ["cdylib"]
@@ -25,3 +26,7 @@ crate-type = ["cdylib"]
 version = "0.3"
 features = ["console"]
 
+[profile.release]
+lto = true
+codegen-units = 1
+debug = true  # 追加
