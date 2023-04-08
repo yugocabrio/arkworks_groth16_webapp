@@ -19,6 +19,8 @@ ark-bn254 = "0.3.0"
 ark-serialize = "^0.3.0"
 console_error_panic_hook = "0.1.7"
 ark-ec = "0.4.0"
+rand = "0.8"
+getrandom = { version = "0.2", features = ["js"] }
 
 [lib]
 crate-type = ["cdylib"]

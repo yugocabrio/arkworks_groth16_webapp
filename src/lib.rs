@@ -1,8 +1,10 @@
+extern crate rand;
 use wasm_bindgen::prelude::*;
 use wasm_bindgen::JsValue;
 use serde_wasm_bindgen::from_value;
 use console_error_panic_hook;
-use serde_json::{json, Value};
+use serde_json::json;
+use rand::rngs::OsRng;
 
 use ark_bn254::{Bn254, Fr};
 use ark_groth16::{generate_random_parameters, prepare_verifying_key, create_random_proof, verify_proof, Proof};
@@ -52,6 +54,7 @@ impl ConstraintSynthesizer<Fr> for Circuit {
 #[wasm_bindgen]
 pub fn create_proof() -> Result<Vec<u8>, JsValue> {
     let rng = &mut StdRng::seed_from_u64(0u64);
+    //let mut rng = OsRng;
 
     let pk = {
         let c = Circuit {
@@ -59,6 +62,7 @@ pub fn create_proof() -> Result<Vec<u8>, JsValue> {
             b: None,
             c: None,
         };
+        // generate_random_parameters::<Bn254, _, _>(c, &mut rng).unwrap()
         generate_random_parameters::<Bn254, _, _>(c, rng).unwrap()
     };
 

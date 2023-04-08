@@ -86,6 +86,7 @@ function resetResults() {
   currentProofVec = null;
 }
 
+
 // wasmモジュールの初期化とボタンイベントリスナーの追加
 async function main() {
   await init();
