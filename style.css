@@ -37,8 +37,6 @@ button:hover {
     background-color: #9f35e6; /* ホバー時のボタンの背景色を濃い緑に変更 */
 }
 
-/* proofResult のスタイルを設定 */
-/* proofResult のスタイルを設定 */
 #proofResult {
     background-color: #333333; /* コンテナの背景色と同じに変更 */
     padding: 10px;
